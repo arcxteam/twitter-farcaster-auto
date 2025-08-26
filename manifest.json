@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Twitter/X Auto Scroll & Refresh",
+  "name": "Tools Auto Scroll & Refresh Twitter/X",
   "version": "1.0",
   "description": "Auto scrolling and refresh for x.com home page.",
   "permissions": ["scripting", "tabs", "storage"],
@@ -20,5 +20,8 @@
     "16": "src/icon16x16.png",
     "48": "src/icon48x48.png",
     "128": "src/icon128x128.png"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' https://quantifycrypto.com; object-src 'self';"
   }
 }
