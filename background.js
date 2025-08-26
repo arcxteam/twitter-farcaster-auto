@@ -1,4 +1,5 @@
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+  console.log("Tab updated:", tab.url); // Debugging log
   if (changeInfo.status === "complete" && /^https:\/\/x\.com\/home$/.test(tab.url)) {
     chrome.storage.local.get("enabled", (data) => {
       if (chrome.runtime.lastError) {
