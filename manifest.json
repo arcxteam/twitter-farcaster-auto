@@ -1,24 +1,20 @@
 {
   "manifest_version": 3,
-  "name": "X Auto Scroll & Refresh",
+  "name": "Twitter/X Auto Scroll & Refresh",
   "version": "1.0",
-  "description": "Auto scrolls and refreshes X.com home page.",
+  "description": "auto scrolling and refresh for x.com home page.",
   "permissions": ["scripting", "tabs", "storage"],
   "host_permissions": ["https://x.com/*"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "16": "icon16x.png",
-      "48": "icon48x.png",
-      "128": "icon128x.png"
+      "128": "src/icon128x128.png"
     }
   },
   "background": {
     "service_worker": "background.js"
   },
   "icons": {
-    "16": "icon16x.png",
-    "48": "icon48x.png",
-    "128": "icon128x.png"
+    128": "src/icon128x128.png"
   }
 }
