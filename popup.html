@@ -1,41 +1,130 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Twitter/X Auto Scroll By: Greyscope&Co. 0xgr3y</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tools Twitter/X Auto Scroll & Refresh</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: Arial Mono, sans-serif; padding: 12px; width: 220px; }
-    .git-link {
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      padding: 15px;
+      width: 385px;
+      background-color: #000000;
+      color: #ffffff;
+    }
+    .container {
       text-align: center;
+    }
+    img.logo {
+      width: 385px;
+      height: auto;
       margin-bottom: 10px;
-      font-weight: bold;
     }
-    .git-link a {
-      color: #8a2be2;
+    h2 {
+      font-size: 16px;
+      margin: 10px 0;
+      color: #ffffff;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #444;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      background-color: #222;
+      color: #ffffff;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      background-color: #8a2be2;
+      color: #ffffff;
+      border: none;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #6a1bb2;
+    }
+    #status {
+      margin-top: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .notice {
+      margin: 10px 0;
+      font-size: 10px;
+      color: #cccccc;
+      line-height: 1.4;
+    }
+    .links {
+      margin: 10px 0;
+      font-size: 12px;
+    }
+    .links a {
+      color: #1da1f2;
       text-decoration: none;
+      margin: 0 5px;
     }
-    .git-link a:hover {
+    .links a:hover {
       text-decoration: underline;
+    }
+    .crypto-widget {
+      margin: 10px 0;
+    }
+    .slogan {
+      margin: 10px 0;
+      font-size: 12px;
+      font-weight: 700;
+      background: linear-gradient(90deg, #8a2be2, #1da1f2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transition: transform 0.3s ease;
+    }
+    .slogan:hover {
+      transform: scale(1.05);
     }
   </style>
 </head>
 <body>
-  <!-- Github Link -->
-  <div class="git-link">
-    <a href="https://github.com/arcxteam/" target="_blank">You can follow me on GitHub :octocat: </a>
+  <div class="container">
+    <img src="src/logo.png" alt="Extension Logo" class="logo">
+    <h2>Twitter/X Auto Scroll & Refresh</h2>
+    <label for="scrollTime">Scroll Time (seconds):</label>
+    <input type="number" id="scrollTime" min="1" step="1" placeholder="e.g., 1" aria-label="Scroll time in seconds">
+    <label for="refreshTime">Refresh Interval (minutes):</label>
+    <input type="number" id="refreshTime" min="1" step="1" placeholder="e.g., 10" aria-label="Refresh interval in minutes">
+    <button id="toggle" aria-label="Toggle auto-scroll and refresh">Start</button>
+    <div id="status">Status: OFF</div>
+    <div class="notice">
+      This extension provides a tool for auto-scrolling and refreshing the x.com homepage. It is intended for personal use only and should not be used to violate platform rules. The developer is not responsible for any account restrictions or bans resulting from misuse. © 2025 Greyscope&Co, By: 0xgrey
+    </div>
+    <div class="links">
+      <a href="https://github.com/arcxteam" target="_blank">FOLLOW ME GITHUB</a> |
+      <a href="https://x.com/Gr3yscope/" target="_blank">FOLLOW ME X</a> |
+      <a href="https://greyscope.xyz" target="_blank">VISIT GREYSCOPE.XYZ</a>
+    </div>
+    <div class="slogan">MAKE FREE GREAT AGAIN</div>
+    <div class="crypto-widget">
+      <qc-grid-widget theme="dark" width="385px" ranking-type="top_20" currency-code="USD"></qc-grid-widget>
+      <script src="https://quantifycrypto.com/widgets/grid/js/qc-grid-widget.js"></script>
+    </div>
   </div>
-
-  <h3>Auto Scroll Settings</h3>
-  <label>
-    Scroll Time (sec):
-    <input type="number" id="scrollTime" value="2" min="2">
-  </label>
-  <label>
-    Refresh Interval (minutes):
-    <input type="number" id="refreshTime" value="11" min="1">
-  </label>
-  <button id="toggle">Start</button>
-  <p id="status">Status: OFF</p>
-
   <script src="popup.js"></script>
 </body>
 </html>
