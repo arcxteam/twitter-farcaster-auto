@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const scrollInput = document.getElementById("scrollTime");
   const refreshInput = document.getElementById("refreshTime");
   const toggleBtn = document.getElementById("toggle");
+  const statusIndicator = document.querySelector(".status-indicator");
   const statusText = document.getElementById("status");
 
   // Load initial settings
@@ -13,8 +14,15 @@ document.addEventListener("DOMContentLoaded", () => {
     if (data.scrollTime) scrollInput.value = data.scrollTime;
     if (data.refreshTime) refreshInput.value = data.refreshTime;
     if (data.enabled) {
-      statusText.textContent = "Status: ON";
-      toggleBtn.textContent = "Stop";
+      statusIndicator.classList.remove("off");
+      statusIndicator.classList.add("on");
+      toggleBtn.classList.add("active");
+      statusText.textContent = "Status";
+    } else {
+      statusIndicator.classList.remove("on");
+      statusIndicator.classList.add("off");
+      toggleBtn.classList.remove("active");
+      statusText.textContent = "Status";
     }
   });
 
@@ -76,8 +84,18 @@ document.addEventListener("DOMContentLoaded", () => {
           console.error("Error setting storage:", chrome.runtime.lastError);
           return;
         }
-        statusText.textContent = newState ? "Status: ON" : "Status: OFF";
-        toggleBtn.textContent = newState ? "Stop" : "Start";
+        if (newState) {
+          statusIndicator.classList.remove("off");
+          statusIndicator.classList.add("on");
+          toggleBtn.classList.add("active");
+          toggleBtn.textContent = "Stop";
+        } else {
+          statusIndicator.classList.remove("on");
+          statusIndicator.classList.add("off");
+          toggleBtn.classList.remove("active");
+          toggleBtn.textContent = "Start";
+        }
+        statusText.textContent = "Status";
       });
     });
   });
