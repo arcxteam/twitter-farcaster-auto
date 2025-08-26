@@ -2,12 +2,14 @@
   "manifest_version": 3,
   "name": "Twitter/X Auto Scroll & Refresh",
   "version": "1.0",
-  "description": "auto scrolling and refresh for x.com home page.",
+  "description": "Auto scrolling and refresh for x.com home page.",
   "permissions": ["scripting", "tabs", "storage"],
   "host_permissions": ["https://x.com/*"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
+      "16": "src/icon16x16.png",
+      "48": "src/icon48x48.png",
       "128": "src/icon128x128.png"
     }
   },
@@ -15,7 +17,8 @@
     "service_worker": "background.js"
   },
   "icons": {
+    "16": "src/icon16x16.png",
+    "48": "src/icon48x48.png",
     "128": "src/icon128x128.png"
   }
 }
-
