@@ -52,7 +52,7 @@
     }
     button {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       margin: 10px 0;
       background-color: #8a2be2;
       color: #ffffff;
@@ -63,6 +63,9 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
+    button:active {
+      background: linear-gradient(90deg, #8a2be2, #ffd700);
+    }
     button:hover {
       background-color: #6a1bb2;
     }
@@ -71,6 +74,19 @@
       font-size: 12px;
       font-weight: 700;
       color: #ffffff;
+    }
+    .status-icon {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-right: 5px;
+    }
+    .status-on {
+      background-color: #00cc00;
+    }
+    .status-off {
+      background-color: #ff0000;
     }
     .notice {
       margin: 10px 0;
@@ -90,14 +106,11 @@
     .links a:hover {
       text-decoration: underline;
     }
-    .crypto-widget {
-      margin: 10px 0;
-    }
     .slogan {
       margin: 10px 0;
       font-size: 12px;
       font-weight: 700;
-      background: linear-gradient(90deg, #8a2be2, #1da1f2);
+      background: linear-gradient(90deg, #8a2be2, #ffd700);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       transition: transform 0.3s ease;
@@ -116,7 +129,7 @@
     <label for="refreshTime">Refresh Interval (minutes):</label>
     <input type="number" id="refreshTime" min="1" step="1" placeholder="e.g., 10" aria-label="Refresh interval in minutes">
     <button id="toggle" aria-label="Toggle auto-scroll and refresh">Start</button>
-    <div id="status">Status: OFF</div>
+    <div id="status"><span class="status-icon status-off"></span>OFF</div>
     <div class="notice">
       This extension provides a tool for auto-scrolling and refreshing the x.com homepage. It is intended for personal use only and should not be used to violate platform rules. The developer is not responsible for any account restrictions or bans resulting from misuse. © 2025 Greyscope&Co, By: 0xgrey
     </div>
@@ -125,12 +138,48 @@
       <a href="https://x.com/Gr3yscope/" target="_blank">FOLLOW ME X</a> |
       <a href="https://greyscope.xyz" target="_blank">VISIT GREYSCOPE.XYZ</a>
     </div>
-    <div class="slogan">MAKE FREE GREAT AGAIN</div>
-    <div class="crypto-widget">
-      <qc-grid-widget theme="dark" width="385px" ranking-type="top_20" currency-code="USD"></qc-grid-widget>
-      <script src="https://quantifycrypto.com/widgets/grid/js/qc-grid-widget.js"></script>
-    </div>
+    <div class="slogan">Make Free Great Again</div>
   </div>
   <script src="popup.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const toggleBtn = document.getElementById("toggle");
+      const statusDiv = document.getElementById("status");
+      const statusIcon = statusDiv.querySelector(".status-icon");
+
+      // Sync status icon with toggle button state
+      chrome.storage.local.get("enabled", (data) => {
+        if (chrome.runtime.lastError) {
+          console.error("Error retrieving storage:", chrome.runtime.lastError);
+          return;
+        }
+        updateStatusIcon(data.enabled);
+      });
+
+      toggleBtn.addEventListener("click", () => {
+        chrome.storage.local.get("enabled", (data) => {
+          if (chrome.runtime.lastError) {
+            console.error("Error retrieving storage:", chrome.runtime.lastError);
+            return;
+          }
+          const newState = !data.enabled;
+          updateStatusIcon(newState);
+        });
+      });
+
+      function updateStatusIcon(enabled) {
+        if (enabled) {
+          statusIcon.classList.remove("status-off");
+          statusIcon.classList.add("status-on");
+          statusDiv.textContent = "ON";
+        } else {
+          statusIcon.classList.remove("status-on");
+          statusIcon.classList.add("status-off");
+          statusDiv.textContent = "OFF";
+        }
+        statusDiv.prepend(statusIcon);
+      }
+    });
+  </script>
 </body>
 </html>
