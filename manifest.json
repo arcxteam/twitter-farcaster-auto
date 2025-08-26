@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Tools Twitter/X Auto Scroll & Refresh",
+  "name": "Tools Auto Scroll & Refresh Twitter/X",
   "version": "1.0",
-  "description": "Auto scrolling and refresh for twitter/x homepage",
+  "description": "Auto scrolls and refreshes Twitter/x.com home page",
   "permissions": ["scripting", "tabs", "storage"],
   "host_permissions": ["https://x.com/*"],
   "action": {

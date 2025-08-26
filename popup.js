@@ -2,8 +2,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const scrollInput = document.getElementById("scrollTime");
   const refreshInput = document.getElementById("refreshTime");
   const toggleBtn = document.getElementById("toggle");
-  const statusIndicator = document.querySelector(".status-indicator");
-  const statusText = document.getElementById("status");
+  const statusDiv = document.getElementById("status");
+  const statusIcon = statusDiv ? statusDiv.querySelector(".status-icon") : null;
+
+  if (!toggleBtn || !statusDiv || !statusIcon) {
+    console.error("One or more DOM elements not found:", { toggleBtn, statusDiv, statusIcon });
+    return;
+  }
 
   // Load initial settings
   chrome.storage.local.get(["enabled", "scrollTime", "refreshTime"], (data) => {
@@ -14,15 +19,15 @@ document.addEventListener("DOMContentLoaded", () => {
     if (data.scrollTime) scrollInput.value = data.scrollTime;
     if (data.refreshTime) refreshInput.value = data.refreshTime;
     if (data.enabled) {
-      statusIndicator.classList.remove("off");
-      statusIndicator.classList.add("on");
-      toggleBtn.classList.add("active");
-      statusText.textContent = "Status";
+      statusIcon.classList.remove("status-off");
+      statusIcon.classList.add("status-on");
+      statusDiv.textContent = "ON";
+      toggleBtn.textContent = "Stop";
     } else {
-      statusIndicator.classList.remove("on");
-      statusIndicator.classList.add("off");
-      toggleBtn.classList.remove("active");
-      statusText.textContent = "Status";
+      statusIcon.classList.remove("status-on");
+      statusIcon.classList.add("status-off");
+      statusDiv.textContent = "OFF";
+      toggleBtn.textContent = "Start";
     }
   });
 
@@ -62,18 +67,8 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("Error retrieving storage:", chrome.runtime.lastError);
         return;
       }
-      const scrollTime = parseInt(scrollInput.value);
-      const refreshTime = parseInt(refreshInput.value);
-      if (isNaN(scrollTime) || scrollTime < 1) {
-        alert("Scroll time must be a positive number!");
-        scrollInput.value = 1;
-        return;
-      }
-      if (isNaN(refreshTime) || refreshTime < 1) {
-        alert("Refresh time must be a positive number!");
-        refreshInput.value = 10;
-        return;
-      }
+      const scrollTime = parseInt(scrollInput.value) || 1;
+      const refreshTime = parseInt(refreshInput.value) || 10;
       const newState = !data.enabled;
       chrome.storage.local.set({
         enabled: newState,
@@ -85,17 +80,16 @@ document.addEventListener("DOMContentLoaded", () => {
           return;
         }
         if (newState) {
-          statusIndicator.classList.remove("off");
-          statusIndicator.classList.add("on");
-          toggleBtn.classList.add("active");
+          statusIcon.classList.remove("status-off");
+          statusIcon.classList.add("status-on");
+          statusDiv.textContent = "ON";
           toggleBtn.textContent = "Stop";
         } else {
-          statusIndicator.classList.remove("on");
-          statusIndicator.classList.add("off");
-          toggleBtn.classList.remove("active");
+          statusIcon.classList.remove("status-on");
+          statusIcon.classList.add("status-off");
+          statusDiv.textContent = "OFF";
           toggleBtn.textContent = "Start";
         }
-        statusText.textContent = "Status";
       });
     });
   });

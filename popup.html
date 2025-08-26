@@ -1,10 +1,49 @@
-<!DOCTYPE html>
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tools Twitter/X Auto Scroll & Refresh</title>
+  <title>X Auto Scroll & Refresh</title>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
@@ -52,7 +91,7 @@
     }
     button {
       width: 100%;
-      padding: 12px;
+      padding: 12px 15px; /* Melebar padding agar sejajar dengan input */
       margin: 10px 0;
       background-color: #8a2be2;
       color: #ffffff;
@@ -62,9 +101,6 @@
       font-size: 14px;
       cursor: pointer;
       transition: background-color 0.3s ease;
-    }
-    button:active {
-      background: linear-gradient(90deg, #8a2be2, #ffd700);
     }
     button:hover {
       background-color: #6a1bb2;
@@ -81,12 +117,13 @@
       height: 12px;
       border-radius: 50%;
       margin-right: 5px;
-    }
-    .status-on {
-      background-color: #00cc00;
+      vertical-align: middle;
     }
     .status-off {
-      background-color: #ff0000;
+      background-color: #ff0000; /* Merah untuk OFF */
+    }
+    .status-on {
+      background-color: #00cc00; /* Hijau untuk ON */
     }
     .notice {
       margin: 10px 0;
@@ -110,7 +147,7 @@
       margin: 10px 0;
       font-size: 12px;
       font-weight: 700;
-      background: linear-gradient(90deg, #8a2be2, #ffd700);
+      background: linear-gradient(90deg, #8a2be2, #1da1f2);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       transition: transform 0.3s ease;
@@ -122,16 +159,17 @@
 </head>
 <body>
   <div class="container">
-    <img src="src/logo.png" alt="Extension Logo" class="logo">
-    <h2>Twitter/X Auto Scroll & Refresh</h2>
-    <label for="scrollTime">Scroll Time (seconds):</label>
+    <img src="icon128x.png" alt="Extension Logo" class="logo">
+    <h2>X Auto Scroll & Refresh</h2>
+    <div>Auto Scroll Settings</div>
+    <label for="scrollTime">Scroll Time (sec):</label>
     <input type="number" id="scrollTime" min="1" step="1" placeholder="e.g., 1" aria-label="Scroll time in seconds">
     <label for="refreshTime">Refresh Interval (minutes):</label>
     <input type="number" id="refreshTime" min="1" step="1" placeholder="e.g., 10" aria-label="Refresh interval in minutes">
     <button id="toggle" aria-label="Toggle auto-scroll and refresh">Start</button>
     <div id="status"><span class="status-icon status-off"></span>OFF</div>
     <div class="notice">
-      This extension provides a tool for auto-scrolling and refreshing the x.com homepage. It is intended for personal use only and should not be used to violate platform rules. The developer is not responsible for any account restrictions or bans resulting from misuse. © 2025 Greyscope&Co, By: 0xgrey
+      This extension auto-scrolls and refreshes the X.com homepage. For personal use only. Misuse may lead to account restrictions. © 2025 Greyscope&Co, By: 0xgrey
     </div>
     <div class="links">
       <a href="https://github.com/arcxteam" target="_blank">FOLLOW ME GITHUB</a> |
@@ -141,45 +179,5 @@
     <div class="slogan">Make Free Great Again</div>
   </div>
   <script src="popup.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const toggleBtn = document.getElementById("toggle");
-      const statusDiv = document.getElementById("status");
-      const statusIcon = statusDiv.querySelector(".status-icon");
-
-      // Sync status icon with toggle button state
-      chrome.storage.local.get("enabled", (data) => {
-        if (chrome.runtime.lastError) {
-          console.error("Error retrieving storage:", chrome.runtime.lastError);
-          return;
-        }
-        updateStatusIcon(data.enabled);
-      });
-
-      toggleBtn.addEventListener("click", () => {
-        chrome.storage.local.get("enabled", (data) => {
-          if (chrome.runtime.lastError) {
-            console.error("Error retrieving storage:", chrome.runtime.lastError);
-            return;
-          }
-          const newState = !data.enabled;
-          updateStatusIcon(newState);
-        });
-      });
-
-      function updateStatusIcon(enabled) {
-        if (enabled) {
-          statusIcon.classList.remove("status-off");
-          statusIcon.classList.add("status-on");
-          statusDiv.textContent = "ON";
-        } else {
-          statusIcon.classList.remove("status-on");
-          statusIcon.classList.add("status-off");
-          statusDiv.textContent = "OFF";
-        }
-        statusDiv.prepend(statusIcon);
-      }
-    });
-  </script>
 </body>
 </html>

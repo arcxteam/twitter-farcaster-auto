@@ -1,19 +1,10 @@
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  console.log("Tab updated:", tab.url); // Debugging log
-  if (changeInfo.status === "complete" && /^https:\/\/x\.com\/home$/.test(tab.url)) {
+  if (changeInfo.status === "complete" && tab.url.includes("x.com/home")) {
     chrome.storage.local.get("enabled", (data) => {
-      if (chrome.runtime.lastError) {
-        console.error("Error retrieving storage:", chrome.runtime.lastError);
-        return;
-      }
       if (data.enabled) {
         chrome.scripting.executeScript({
           target: { tabId: tabId },
           files: ["content.js"]
-        }, () => {
-          if (chrome.runtime.lastError) {
-            console.error("Error injecting script:", chrome.runtime.lastError);
-          }
         });
       }
     });
