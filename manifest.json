@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "Tools Auto Scroll & Refresh Twitter/X",
-  "version": "1.0",
-  "description": "Auto scrolls and refreshes Twitter/x.com home page",
+  "name": "Auto Scroll & Refresh X & Farcaster",
+  "version": "1.0.2",
+  "description": "This tools for auto scrolling and refreshes on Twitter/X & Farcaster homepages. Created by 0xgrey. Licensed under MIT License.",
+  "author": "Greyscope&Co (0xgrey)",
   "permissions": ["scripting", "tabs", "storage"],
   "host_permissions": ["https://x.com/*"],
   "action": {
