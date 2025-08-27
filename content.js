@@ -1,6 +1,6 @@
 (function() {
   // Inisialisasi variabel di dalam IIFE untuk menghindari konflik global
-  let timers = timers || {}; // Objek untuk menyimpan interval dan timeout
+  let timers = {}; // Objek untuk menyimpan interval dan timeout
 
   function startAutoScroll(scrollSec, refreshMin) {
     stopAutoScroll(); // reset jika berjalan
