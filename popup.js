@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
   scrollInput.addEventListener("change", () => {
     const value = parseInt(scrollInput.value);
     if (isNaN(value) || value < 1) {
-      alert("Scroll time must be a positive number!");
+      alert("Scrolling time must be a positive number");
       scrollInput.value = 1;
       return;
     }
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
   refreshInput.addEventListener("change", () => {
     const value = parseInt(refreshInput.value);
     if (isNaN(value) || value < 1) {
-      alert("Refresh time must be a positive number!");
+      alert("Refresh interval must be a positive number");
       refreshInput.value = 10;
       return;
     }
