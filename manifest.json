@@ -5,7 +5,7 @@
   "description": "This tools for auto scrolling and refreshes on Twitter/X & Farcaster homepages. Created by 0xgrey. Licensed under MIT License.",
   "author": "Greyscope&Co (0xgrey)",
   "permissions": ["scripting", "tabs", "storage"],
-  "host_permissions": ["https://x.com/*"],
+  "host_permissions": ["https://x.com/*", "https://farcaster.xyz/*"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
