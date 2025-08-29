@@ -44,7 +44,7 @@ https://github.com/user-attachments/assets/618ec5cd-f51f-4f67-88a9-4e14ba22d970
    - Load unpacked → Go to folder after extract file ZIP → `Select one folder`
 4. **This was success inital load to chrome extension, Try!! open**
 
-- ### With Server like VPS → `Chrome/Chromium on Linux`
+- ### With Server like VPS → `Google Chrome on Linux`
 
 1. **Follow this guide:**
    - [Setup a Full-Control Browser Google Chrome on Linux (VPS Server) with KasmVNC Workspaces](https://github.com/arcxteam/Chrome-Linux)
