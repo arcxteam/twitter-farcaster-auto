@@ -12,11 +12,16 @@
 [![farcaster](https://img.shields.io/badge/farcaster-855DCD?style=for-the-badge&logo=farcaster&logoColor=white)](https://farcaster.xyz)
 [![bluesky](https://img.shields.io/badge/bluesky-0285FF?style=for-the-badge&logo=bluesky&logoColor=white)](https://bsky.app/)
 
+## Update Extensions 
+
+![Update](https://img.shields.io/badge/Releases_Version-v1.0.8-E4405F)
+
+https://github.com/user-attachments/assets/618ec5cd-f51f-4f67-88a9-4e14ba22d970
+
+---
 
 
-![Update](https://img.shields.io/badge/Update_Version-v1.0.8-brightgreen)
 
-- version: 1.0.8
 - This tools for auto scrolling and refreshes on Twitter/X & Farcaster homepages. Created by 0xgrey. Licensed under MIT License.",
 
 
