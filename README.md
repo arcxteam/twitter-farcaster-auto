@@ -28,7 +28,14 @@ https://github.com/user-attachments/assets/618ec5cd-f51f-4f67-88a9-4e14ba22d970
 
 <h1 align="center">Make Great Every Scroll</h1>
 
-## Installing
+## Setting Features & Tips
+
+- Scroll time in (seconds) → `auto scroll on homepages/feeds/community recommend 2s`
+- Refresh time in (minutes) → `auto refresh tab every 10mins` 
+- Tips!! in the first time on toogle `START` have need a trigger manual scroll..and looks
+
+
+## Quick Installing 
 
 - ### With Local Resources → `Chrome/Chromium/Firefox/Edge/etc`
 
@@ -36,7 +43,7 @@ https://github.com/user-attachments/assets/618ec5cd-f51f-4f67-88a9-4e14ba22d970
 
 1. **On this repo:** Navigate to
    - On top click → `<> Code → Download ZIP`
-   - Direct download → https://github.com/arcxteam/twitter-farcaster-auto/archive/refs/heads/main.zip
+   - Or Direct download → https://codeload.github.com/arcxteam/twitter-farcaster-auto/zip/refs/heads/main
 2. **Extract ZIP file:**
 3. **Tab or settings:** Go to
    - Open `chrome://extensions`
