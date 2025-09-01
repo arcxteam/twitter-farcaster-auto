@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tools Twitter/X Auto Scroll & Refresh</title>
+  <title>Tools Auto Scroll & Refresh</title>
+  <link rel="icon" href="src/icon16x16.png" type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
@@ -25,13 +26,14 @@
     h2 {
       font-size: 20px;
       margin: 10px 0;
-      color: #8a2be2;
-      transition: color 0.3s ease;
-    }
-    h2:hover {
       background: linear-gradient(90deg, #8a2be2, #bbdd23);
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
+      transition: transform 0.3s ease;
+    }
+    h2:hover {
+      transform: scale(1.05);
     }
     label {
       display: block;
@@ -49,6 +51,11 @@
       font-size: 12px;
       background-color: #222;
       color: #ffffff;
+      text-align: center;
+    }
+    input[type="number"]::placeholder {
+      text-align: center;
+      color: #888;
     }
     button {
       width: 105%;
@@ -110,6 +117,7 @@
       font-weight: 700;
       background: linear-gradient(90deg, #8a2be2, #bbdd23);
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
       transition: transform 0.3s ease;
     }
@@ -121,23 +129,23 @@
 <body>
   <div class="container">
     <img src="src/logo.png" alt="Extension Logo" class="logo">
-    <h2>TOOLS X AUTO SCROLL & REFRESH</h2>
+    <h2>TOOLS | AUTO SCROLL & REFRESH</h2>
     <div><span style="color: #bbdd23;">Settings</span></div>
-    <label for="scrollTime">Scrolling Time (secs)</label>
+    <label for="scrollTime">Scroll Time (secs)</label>
     <input type="number" id="scrollTime" min="1" step="1" placeholder="e.g. 1" aria-label="Scroll time in seconds">
-    <label for="refreshTime">Refresh Interval (mins)</label>
+    <label for="refreshTime">Refresh Tabs (mins)</label>
     <input type="number" id="refreshTime" min="1" step="1" placeholder="e.g. 10" aria-label="Refresh interval in minutes">
     <button id="toggle" aria-label="Toggle auto-scroll and refresh">Start</button>
     <div id="status"><span class="status-icon status-off"></span>OFF</div>
     <div class="notice">
-      This extension for auto-scroll and refresh on Twitter/X.com homepage. It's intended for personal use only and should not be used to violate platform rules. © 2025 Greyscope&Co, by.0xgrey
+      This extensions tool auto scroll and refresh for social media homepages/feeds. It's intended for personal use only and should not be used to violate platform rules. © 2025 Greyscope&Co, By.0xgrey
     </div>
     <div class="links">
       <a href="https://github.com/arcxteam" target="_blank">FOLLOW ME GITHUB</a> |
       <a href="https://x.com/Gr3yscope/" target="_blank">FOLLOW ME X</a> |
       <a href="https://greyscope.xyz" target="_blank">VISIT GREYSCOPE.XYZ</a>
     </div>
-    <div class="slogan">Make Free Great Again</div>
+    <div class="slogan">Make Scroll Great Again</div>
   </div>
   <script src="popup.js"></script>
 </body>
