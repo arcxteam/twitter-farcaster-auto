@@ -1,11 +1,11 @@
 {
   "manifest_version": 3,
-  "name": "Tools Auto X & Farcaster",
-  "version": "1.0.8",
-  "description": "This tools for auto scrolling and refreshes on Twitter/X & Farcaster homepages. Created by 0xgrey. Licensed under MIT License.",
-  "author": "Greyscope&Co (0xgrey)",
+  "name": "Tools Auto X, Farcaster & Bluesky",
+  "version": "1.0.9",
+  "description": "Extensions tool auto scrolling and refresh on Twitter/X, Farcaster & Bluesky homepages/feeds. Created by 0xgr3y. Licensed under MIT License.",
+  "author": "Greyscope&Co",
   "permissions": ["scripting", "tabs", "storage"],
-  "host_permissions": ["https://x.com/*", "https://farcaster.xyz/*"],
+  "host_permissions": ["https://x.com/*", "https://farcaster.xyz/*", "https://bsky.app/*"],
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
