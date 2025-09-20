@@ -27,7 +27,7 @@
 
 ## Extensions Update 
 
-![Update](https://img.shields.io/badge/Releases_Version-v1.0.9-brightgreen)
+![Update](https://img.shields.io/badge/Releases_Version-v1.1.0-brightgreen)
 
 https://github.com/user-attachments/assets/618ec5cd-f51f-4f67-88a9-4e14ba22d970
 
@@ -44,7 +44,7 @@ https://github.com/user-attachments/assets/618ec5cd-f51f-4f67-88a9-4e14ba22d970
 
 ## Quick Installing 
 
-### 1. With Local Resources → Chrome/Chromium/Firefox/Edge
+### 1. Local Web Browser → Chrome/Chromium/Firefox/Edge
 
   Follow this for use on browser like chrome extensions
 
@@ -58,11 +58,11 @@ https://github.com/user-attachments/assets/618ec5cd-f51f-4f67-88a9-4e14ba22d970
    - Load unpacked → Go to folder after extract file ZIP → `Select one folder`
 4. **This was success inital load to chrome extension, Try!! open**
 
-### 2. Running on Server like VPS → Google Chrome Linux
+### 2. Run Fully Google Chrome on Linux server (VPS)
 
 1. **Follow this guide:**
-   - [Setup Full-Control Browser Google Chrome on Linux (VPS Server) with KasmVNC Workspaces](https://github.com/arcxteam/Chrome-Linux)
-   - Full control Google Chrome, High performance, VNC modern by KasmVNC
-   - Go to here for Load unpacked → this will be auto open folder into chrome tab `volumes: ./downloads:/home/kasm-user/Downloads`
+   - Use 2 methode only chrome client by Kasm or use XFCE dekstop environment (GUI)
+   - Visit to [Setup Full-Control Browser Google Chrome on Linux Server (VPS)](https://github.com/arcxteam/Chrome-Linux-Desktop)
+   - Full control Google Chrome
 
 <img width="1437" height="445" alt="image" src="https://github.com/user-attachments/assets/a919ac71-c107-4c20-afc5-fc21bbf1e000" />
