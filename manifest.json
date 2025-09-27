@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Tools Auto Social Media Scroll & Refresh",
-  "version": "1.1.0",
-  "description": "Extensions tool auto scrolling and refresh on Twitter/X, Farcaster, Bluesky, LinkedIn, Quora & Reddit homepages/feeds. Created by 0xgrey. Licensed under MIT License.",
+  "version": "1.1.1",
+  "description": "Extensions tool auto scroll and refresh with smart features on Twitter/X, Farcaster, Bluesky, LinkedIn, Quora & Reddit. Created by 0xgrey. MIT License.",
   "author": "Greyscope&Co",
   "permissions": ["scripting", "tabs", "storage"],
   "host_permissions": [
