@@ -57,6 +57,20 @@
       text-align: center;
       color: #888;
     }
+    .checkbox-container {
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+      justify-content: center;
+    }
+    .checkbox-container input[type="checkbox"] {
+      margin-right: 8px;
+    }
+    .checkbox-label {
+      font-size: 12px;
+      color: #bbdd23;
+      cursor: pointer;
+    }
     button {
       width: 105%;
       padding: 12px 15px;
@@ -131,20 +145,31 @@
     <img src="src/logo.png" alt="Extension Logo" class="logo">
     <h2>TOOLS | AUTO SCROLL & REFRESH</h2>
     <div><span style="color: #bbdd23;">Settings</span></div>
+    
     <label for="scrollTime">Scroll Time (secs)</label>
-    <input type="number" id="scrollTime" min="1" step="1" placeholder="e.g. 1" aria-label="Scroll time in seconds">
+    <input type="number" id="scrollTime" min="0.1" step="0.1" placeholder="e.g. 0.5" aria-label="Scroll time in seconds">
+    
     <label for="refreshTime">Refresh Tabs (mins)</label>
     <input type="number" id="refreshTime" min="1" step="1" placeholder="e.g. 10" aria-label="Refresh interval in minutes">
+    
+    <div class="checkbox-container">
+      <input type="checkbox" id="autoReload">
+      <label for="autoReload" class="checkbox-label">Auto reload when content ends</label>
+    </div>
+    
     <button id="toggle" aria-label="Toggle auto-scroll and refresh">Start</button>
     <div id="status"><span class="status-icon status-off"></span>OFF</div>
+    
     <div class="notice">
       This extensions tool auto scroll and refresh for social media homepages/feeds. It's intended for personal use only and should not be used to violate platform rules. © 2025 Greyscope&Co, By.0xgrey
     </div>
+    
     <div class="links">
       <a href="https://github.com/arcxteam" target="_blank">FOLLOW ME GITHUB</a> |
       <a href="https://x.com/Gr3yscope/" target="_blank">FOLLOW ME X</a> |
       <a href="https://greyscope.xyz" target="_blank">VISIT GREYSCOPE.XYZ</a>
     </div>
+    
     <div class="slogan">Make Scroll Great Again</div>
   </div>
   <script src="popup.js"></script>
