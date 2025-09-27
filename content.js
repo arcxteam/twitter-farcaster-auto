@@ -1,7 +1,25 @@
 (function() {
+  // ===== ENHANCED SAFETY CHECK =====
+  const unsafeProtocols = ['chrome-extension:', 'about:', 'edge:', 'opera:', 'brave:', 'firefox:', 'vivaldi:'];
+  const unsafeKeywords = [
+    'metamask', 'okx-wallet', 'extension', 'phantom', 'trust-wallet', 'coinbase-wallet-extension',
+    'rabby-wallet', 'keplr', 'talisman-wallet', 'backpack', 'unisat-wallet', 'leap-wallet', 'suiet-sui-wallet',
+    'martian-aptos-sui-wallet', 'petra-aptos-wallet', 'slush-—-a-sui-wallet'
+  ];
+
+  const currentUrl = window.location.href;
+  const currentProtocol = window.location.protocol;
+  
+  if (unsafeProtocols.includes(currentProtocol) ||
+      unsafeKeywords.some(keyword => currentUrl.toLowerCase().includes(keyword))) {
+    console.log('AutoScroll: Skipping execution on protected page');
+    return;
+  }
+
   // Initial variabel of IIFE
   let timers = {};
   let scrollElement = null;
+  let reloadCount = 0;
 
   // Funtion selector DOM & detect of element farcaster.xyz
   function findFarcasterScrollElement() {
@@ -120,7 +138,7 @@
       'div[data-testid*="content"]',
       'main[role="main"]',
       'div[style*="overflow"]',
-      'div[class*="q-box"]' // Quora specific class
+      'div[class*="q-box"]'
     ];
 
     for (const selector of quoraSelectors) {
@@ -158,7 +176,7 @@
       'div[class*="listing"]',
       'div[class*="Listing"]',
       'div[style*="overflow"]',
-      'shreddit-feed' // Reddit web component
+      'shreddit-feed'
     ];
 
     for (const selector of redditSelectors) {
@@ -181,10 +199,29 @@
     return window;
   }
 
-  function startAutoScroll(scrollSec, refreshMin) {
-    stopAutoScroll();
+  // ✅ FIXED: Improved scroll end detection with better threshold
+  function hasReachedScrollEnd() {
+    try {
+      if (scrollElement === window) {
+        // More accurate calculation for window scrolling
+        const scrollPosition = window.scrollY + window.innerHeight;
+        const totalHeight = document.documentElement.scrollHeight;
+        return scrollPosition >= totalHeight - 200;
+      } else {
+        const scrollPosition = scrollElement.scrollTop + scrollElement.clientHeight;
+        return scrollPosition >= scrollElement.scrollHeight - 200;
+      }
+    } catch (error) {
+      console.log('AutoScroll: Scroll end check error', error);
+      return false;
+    }
+  }
 
-    // Detect window platform
+  function startAutoScroll(scrollSec, refreshMin, autoReload) {
+    stopAutoScroll();
+    reloadCount = 0; // Reset counter
+
+    // EXISTING PLATFORM DETECTION CODE REMAINS UNCHANGED
     const hostname = window.location.hostname;
     const isFarcaster = hostname.includes('farcaster.xyz');
     const isBluesky = hostname.includes('bsky.app');
@@ -208,21 +245,37 @@
       scrollElement = findRedditScrollElement();
       console.log('Using Reddit scroll element:', scrollElement);
     } else {
-      scrollElement = window; // for X.com and others use window
+      scrollElement = window;
       console.log('Using window scroll for X.com/others');
     }
 
-    // Scroll function
+    // ✅ FIXED: Scroll function with improved auto reload logic
     timers.scrollInterval = setInterval(() => {
       try {
+        if (autoReload && hasReachedScrollEnd()) {
+          reloadCount++;
+          console.log('AutoScroll: End of content detected, count:', reloadCount);
+          
+          // ✅ FIX: Only reload after 3 consecutive detections to avoid false positives
+          if (reloadCount >= 3) {
+            console.log('AutoScroll: Content ended, auto reloading...');
+            setTimeout(() => {
+              location.reload();
+            }, 1000); // 1s
+            return;
+          }
+        } else {
+          // Reset counter if not at end
+          reloadCount = 0;
+        }
+
+        // Normal scrolling
         if (scrollElement === window) {
           window.scrollBy({ top: 200, behavior: 'smooth' });
         } else {
-          // For platform-specific scroll elements
           const currentScroll = scrollElement.scrollTop;
           scrollElement.scrollBy({ top: 200, behavior: 'smooth' });
           
-          // Fallback: If scroll doesn't change
           setTimeout(() => {
             if (scrollElement.scrollTop === currentScroll) {
               scrollElement.scrollTop += 200;
@@ -236,36 +289,49 @@
       }
     }, scrollSec * 1000);
 
-    // Refresh function
-    timers.refreshTimeout = setTimeout(() => {
-      location.reload();
-    }, refreshMin * 60 * 1000);
+    // ✅ FIXED: Only set refresh timeout if auto reload is disabled
+    if (!autoReload) {
+      timers.refreshTimeout = setTimeout(() => {
+        console.log('AutoScroll: Time-based reload');
+        location.reload();
+      }, refreshMin * 60 * 1000);
+    }
   }
 
   function stopAutoScroll() {
     if (timers.scrollInterval) clearInterval(timers.scrollInterval);
     if (timers.refreshTimeout) clearTimeout(timers.refreshTimeout);
     timers = {};
+    reloadCount = 0;
   }
 
-  chrome.storage.local.get(["enabled", "scrollTime", "refreshTime"], (data) => {
-    if (data.enabled) {
-      startAutoScroll(data.scrollTime || 1, data.refreshTime || 10);
-    } else {
-      stopAutoScroll();
-    }
-  });
+  // Storage handler to include autoReload
+  try {
+    chrome.storage.local.get(["enabled", "scrollTime", "refreshTime", "autoReload"], (data) => {
+      if (chrome.runtime.lastError) {
+        console.log('AutoScroll: Storage access error', chrome.runtime.lastError);
+        return;
+      }
+      if (data.enabled) {
+        startAutoScroll(data.scrollTime || 1, data.refreshTime || 10, data.autoReload || false);
+      } else {
+        stopAutoScroll();
+      }
+    });
 
-  // React to storage changes live
-  chrome.storage.onChanged.addListener((changes) => {
-    if (changes.enabled || changes.scrollTime || changes.refreshTime) {
-      chrome.storage.local.get(["enabled", "scrollTime", "refreshTime"], (data) => {
-        if (data.enabled) {
-          startAutoScroll(data.scrollTime || 1, data.refreshTime || 10);
-        } else {
-          stopAutoScroll();
-        }
-      });
-    }
-  });
+    // Storage change listener to include autoReload
+    chrome.storage.onChanged.addListener((changes) => {
+      if (changes.enabled || changes.scrollTime || changes.refreshTime || changes.autoReload) {
+        chrome.storage.local.get(["enabled", "scrollTime", "refreshTime", "autoReload"], (data) => {
+          if (data.enabled) {
+            startAutoScroll(data.scrollTime || 1, data.refreshTime || 10, data.autoReload || false);
+          } else {
+            stopAutoScroll();
+          }
+        });
+      }
+    });
+  } catch (error) {
+    console.log('AutoScroll: Runtime initialization error', error);
+  }
 })();
