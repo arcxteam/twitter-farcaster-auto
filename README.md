@@ -8,7 +8,7 @@
 > <mark>This tools for auto scrolling and refreshes on social media/networking homepages.
 > It's intended for personal use only and should not be used to violate platform rules.
 > The developer is not responsible for any account restrictions or bans resulting from misuse.
-> **© 2025 Greyscope&Co, by. 0xgrey. Licensed under MIT.**</mark>
+> **© 2025 Greyscope&Co, by. 0xgrey. Open-Sources - Licensed under MIT.**</mark>
 
 
 ## Support Platfrom
@@ -27,7 +27,7 @@
 
 ## Extensions Update 
 
-![Update](https://img.shields.io/badge/Releases_Version-v1.1.0-brightgreen)
+![Update](https://img.shields.io/badge/Releases_Version-v1.1.1-brightgreen)
 
 https://github.com/user-attachments/assets/618ec5cd-f51f-4f67-88a9-4e14ba22d970
 
@@ -37,10 +37,20 @@ https://github.com/user-attachments/assets/618ec5cd-f51f-4f67-88a9-4e14ba22d970
 
 ## Setting Features & Tips
 
-- Scroll time in (seconds) → **auto scroll on homepages/feeds/community recommend** <mark>2 seconds</mark>
-- Refresh tabs in (minutes) → **auto refresh timing tabs** <mark>10 minutes</mark>
-- Tips!! in the first open an extensions after toogle **START** <mark>it's need trigger a Contents-DOM manual scroll or click any menu or refresh in socials platform</mark>
+### Mode 1: Timed Refresh (Default)
+  - Scroll Time: 0.2 seconds - any value (controls scroll speed)
+  - Refresh Tabs: 10 minutes (fixed interval)
+  - Auto Reload: ❌ Unchecked
+  - Behavior: Reloads page every 10 minutes regardless of content
 
+### Mode 2: Smart Auto Reload
+  - Scroll Time: 0.2 seconds - any value (controls scroll speed)
+  - Refresh Tabs: ⚠️ Ignored (10 minutes setting disabled)
+  - Auto Reload: ✅ Checked
+  - Behavior: Reloads only when content ends + 3 consecutive detections
+  - Just checked <mark>Auto reload when content ends</mark> → it automatically disables the 10-mins timer & enables content-based reloading
+
+> Tips!! in the first open an extensions after toogle click **START** <mark>it's need trigger a Contents-DOM inject scroll or click any menu or refresh in socials platform</mark>
 
 ## Quick Installing 
 
@@ -63,6 +73,6 @@ https://github.com/user-attachments/assets/618ec5cd-f51f-4f67-88a9-4e14ba22d970
 1. **Follow this guide:**
    - Use 2 methode only chrome client by Kasm or use XFCE dekstop environment (GUI)
    - Visit to [Setup Full-Control Browser Google Chrome on Linux Server (VPS)](https://github.com/arcxteam/Chrome-Linux-Desktop)
-   - Full control Google Chrome
+   - This a fully control Google Chrome
 
 <img width="1437" height="445" alt="image" src="https://github.com/user-attachments/assets/a919ac71-c107-4c20-afc5-fc21bbf1e000" />
