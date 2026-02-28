@@ -1,0 +1,28 @@
+# OS files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node (if ever added)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Build output
+dist/
+build/
+*.zip
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.local

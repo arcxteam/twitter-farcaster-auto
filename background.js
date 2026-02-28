@@ -44,7 +44,9 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     "bsky.app", 
     "linkedin.com/feed",
     "quora.com",
-    "reddit.com"
+    "reddit.com",
+    "tiktok.com",
+    "instagram.com"
   ];
   
   const isAllowed = allowedPatterns.some(pattern => tab.url.includes(pattern));
@@ -52,14 +54,26 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (changeInfo.status === "complete" && isAllowed) {
     chrome.storage.local.get("enabled", (data) => {
       if (data.enabled) {
-        setTimeout(() => {
-          chrome.scripting.executeScript({
-            target: { tabId: tabId },
-            files: ["content.js"]
-          }).catch(error => {
-            console.log("AutoScroll: Injection completed", error);
-          });
-        }, 300); // Delay 0.3s
+        // Determine if this is an SPA-heavy platform that needs longer delay
+        const spaPatterns = ["tiktok.com", "instagram.com"];
+        const isSPA = spaPatterns.some(p => tab.url.includes(p));
+        
+        // Primary injection is handled by content_scripts in manifest.json.
+        // This serves as fallback with staggered delays.
+        // Short delay for regular sites, longer + retry for SPA sites.
+        const delays = isSPA ? [1500, 4000, 8000] : [500];
+        
+        delays.forEach((delay) => {
+          setTimeout(() => {
+            chrome.scripting.executeScript({
+              target: { tabId: tabId },
+              files: ["content.js"]
+            }).catch(error => {
+              // Expected: content.js dedup guard prevents double-run
+              console.log("AutoScroll: Fallback injection attempt (" + delay + "ms):", error?.message || "ok");
+            });
+          }, delay);
+        });
       }
     });
   }

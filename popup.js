@@ -25,14 +25,10 @@ document.addEventListener("DOMContentLoaded", () => {
     
     // Update UI state
     if (data.enabled) {
-      statusIcon.classList.remove("status-off");
-      statusIcon.classList.add("status-on");
-      statusDiv.textContent = "ON";
+      statusDiv.innerHTML = '<span class="status-icon status-on"></span> ON';
       toggleBtn.textContent = "Stop";
     } else {
-      statusIcon.classList.remove("status-on");
-      statusIcon.classList.add("status-off");
-      statusDiv.textContent = "OFF";
+      statusDiv.innerHTML = '<span class="status-icon status-off"></span> OFF';
       toggleBtn.textContent = "Start";
     }
   });
@@ -101,14 +97,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         
         if (newState) {
-          statusIcon.classList.remove("status-off");
-          statusIcon.classList.add("status-on");
-          statusDiv.textContent = "ON";
+          statusDiv.innerHTML = '<span class="status-icon status-on"></span> ON';
           toggleBtn.textContent = "Stop";
         } else {
-          statusIcon.classList.remove("status-on");
-          statusIcon.classList.add("status-off");
-          statusDiv.textContent = "OFF";
+          statusDiv.innerHTML = '<span class="status-icon status-off"></span> OFF';
           toggleBtn.textContent = "Start";
         }
       });

@@ -11,14 +11,22 @@
 > **© 2025 Greyscope&Co, by. 0xgrey. Open-Sources - Licensed under MIT.**</mark>
 
 
-## Support Platfrom
+## Support Platform
 
 [![reddit](https://img.shields.io/badge/Reddit-FF4500?style=for-the-badge&logo=reddit&logoColor=white)](https://reddit.com/home)
 [![twitter](https://img.shields.io/badge/Twitter/X-000000?style=for-the-badge&logo=x&logoColor=white)](https://x.com/home)
 [![farcaster](https://img.shields.io/badge/farcaster-855DCD?style=for-the-badge&logo=farcaster&logoColor=white)](https://farcaster.xyz)
 [![bluesky](https://img.shields.io/badge/bluesky-0285FF?style=for-the-badge&logo=bluesky&logoColor=white)](https://bsky.app/)
-[![quora](https://img.shields.io/badge/quora-B92B27?style=for-the-badge&logo=quora&logoColor=white)](https://www.quora.com/)
+[![tiktok](https://img.shields.io/badge/TikTok-000000?style=for-the-badge&logo=tiktok&logoColor=white)](https://www.tiktok.com/)
+[![instagram](https://img.shields.io/badge/Instagram-ED1D44?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/)
 [![linkedin](https://img.shields.io/badge/linkedin-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/feed/)
+[![quora](https://img.shields.io/badge/quora-B92B27?style=for-the-badge&logo=quora&logoColor=white)](https://www.quora.com/)
+
+### Video Platform (TikTok & Instagram)
+  - **TikTok**: Auto-scrolls through video feed — advances to next video each interval
+  - **Instagram Feed & Explore**: Scrolls normally like other social feeds
+  - **Instagram Reels**: Uses advanced multi-strategy navigation (keyboard, button click, scroll-snap, wheel event) to advance between reels
+  - **Scroll Time** controls how long each video plays before auto-advancing. Set 5–20 seconds depending on preference
 
 ## Unsupport - To Be Add Soon
 [![StackOverflow](https://img.shields.io/badge/Stack_Overflow-FE7A16?style=for-the-badge&logo=stack-overflow&logoColor=white)](https://stackoverflow.com/)
@@ -27,7 +35,7 @@
 
 ## Extensions Update 
 
-![Update](https://img.shields.io/badge/Releases_Version-v1.1.1-brightgreen)
+![Update](https://img.shields.io/badge/Releases_Version-v1.2.2-brightgreen)
 
 https://github.com/user-attachments/assets/618ec5cd-f51f-4f67-88a9-4e14ba22d970
 
@@ -39,16 +47,22 @@ https://github.com/user-attachments/assets/618ec5cd-f51f-4f67-88a9-4e14ba22d970
 
 ### Mode 1: Timed Refresh (Default)
   - Scroll Time: 0.2 seconds - any value (controls scroll speed)
-  - Refresh Tabs: 10 minutes (fixed interval)
+  - Refresh Tabs: 10 minutes (fixed interval, always active as safety net)
   - Auto Reload: ❌ Unchecked
-  - Behavior: Reloads page every 10 minutes regardless of content
+  - Behavior: Scrolls continuously, reloads page every N minutes
 
 ### Mode 2: Smart Auto Reload
   - Scroll Time: 0.2 seconds - any value (controls scroll speed)
-  - Refresh Tabs: ⚠️ Ignored (10 minutes setting disabled)
+  - Refresh Tabs: Still active as backup timer
   - Auto Reload: ✅ Checked
-  - Behavior: Reloads only when content ends + 3 consecutive detections
-  - Just checked <mark>Auto reload when content ends</mark> → it automatically disables the 10-mins timer & enables content-based reloading
+  - Behavior: Detects when scroll stops moving (stale detection) → reloads automatically when content truly ends
+  - Refresh timer remains as safety fallback
+
+### Mode 3: Video Platforms (TikTok / Instagram Reels)
+  - Scroll Time: 5–20 seconds recommended (controls how long each video plays before advancing)
+  - Works on TikTok feed and Instagram Reels (`/reels/`, `/reel/`)
+  - Instagram Feed & Explore scroll normally like other social feeds
+  - Auto-advances to next video using multi-strategy: keyboard, button click, scroll-snap, wheel event
 
 > Tips!! in the first open an extensions after toogle click **START** <mark>it's need trigger a Contents-DOM inject scroll or click any menu or refresh in socials platform</mark>
 

@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Tools Auto Social Media Scroll & Refresh",
-  "version": "1.1.1",
-  "description": "Extensions tool auto scroll and refresh with smart features on Twitter/X, Farcaster, Bluesky, LinkedIn, Quora & Reddit. Created by 0xgrey. MIT License.",
+  "version": "1.2.2",
+  "description": "Extensions tool auto scroll and refresh with smart features on Twitter/X, Farcaster, Bluesky, LinkedIn, Quora, Reddit, TikTok & Instagram. Created by 0xgrey. MIT License.",
   "author": "Greyscope&Co",
   "permissions": ["scripting", "tabs", "storage"],
   "host_permissions": [
@@ -11,7 +11,9 @@
     "https://bsky.app/*",
     "https://www.linkedin.com/*",
     "https://www.quora.com/*",
-    "https://www.reddit.com/*"
+    "https://www.reddit.com/*",
+    "https://www.tiktok.com/*",
+    "https://www.instagram.com/*"
   ],
   "action": {
     "default_popup": "popup.html",
@@ -24,6 +26,22 @@
   "background": {
     "service_worker": "background.js"
   },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://x.com/*",
+        "https://farcaster.xyz/*",
+        "https://bsky.app/*",
+        "https://www.linkedin.com/*",
+        "https://www.quora.com/*",
+        "https://www.reddit.com/*",
+        "https://www.tiktok.com/*",
+        "https://www.instagram.com/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
   "icons": {
     "16": "src/icon16x16.png",
     "48": "src/icon48x48.png",
